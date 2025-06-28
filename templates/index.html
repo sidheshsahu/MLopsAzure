@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Placement Predictor</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 500;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #28a745;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Placement Predictor</h2>
+    <form method="POST" action="/predict" onsubmit="return validateForm();">
+      <label>CGPA (0 - 10)</label>
+      <input type="number" step="0.1" min="0" max="10" name="CGPA" required>
+
+      <label>Internships (0 - 5)</label>
+      <input type="number" min="0" max="5" name="Internships" required>
+
+      <label>Projects (0 - 5)</label>
+      <input type="number" min="0" max="5" name="Projects" required>
+
+      <label>Workshops/Certifications (0 - 5)</label>
+      <input type="number" min="0" max="5" name="Workshops/Certifications" required>
+
+      <label>Aptitude Test Score (1 - 100)</label>
+      <input type="number" min="1" max="100" name="AptitudeTestScore" required>
+
+      <label>Soft Skills Rating (1.0 - 5.0)</label>
+      <input type="number" step="0.1" min="1" max="5" name="SoftSkillsRating" required>
+
+      <label>Extracurricular Activities</label>
+      <select name="ExtracurricularActivities" required>
+          <option value="" disabled selected>Select</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+      </select>
+
+      <label>Placement Training</label>
+      <select name="PlacementTraining" required>
+          <option value="" disabled selected>Select</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+      </select>
+
+      <label>SSC Marks (1 - 100)</label>
+      <input type="number" min="1" max="100" name="SSC_Marks" required>
+
+      <label>HSC Marks (1 - 100)</label>
+      <input type="number" min="1" max="100" name="HSC_Marks" required>
+
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction_text %}
+      <div class="result">{{ prediction_text }}</div>
+    {% endif %}
+  </div>
+
+  <script>
+    function validateForm() {
+      const cgpa = parseFloat(document.querySelector('[name="CGPA"]').value);
+      const softSkills = parseFloat(document.querySelector('[name="SoftSkillsRating"]').value);
+
+      if (cgpa < 0 || cgpa > 10) {
+        alert("CGPA must be between 0 and 10");
+        return false;
+      }
+
+      if (softSkills < 1 || softSkills > 5) {
+        alert("Soft Skills Rating must be between 1.0 and 5.0");
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</body>
+</html>
