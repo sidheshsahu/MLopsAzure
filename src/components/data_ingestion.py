@@ -1,5 +1,5 @@
 import os
-# from src.logger import logging
+from src.logger import logging
 from src.exception import CustomException
 import pandas as pd
 import numpy as np
@@ -34,7 +34,7 @@ class data_ingestion():
             train_df.to_csv(self.data_ingestion_data.train_data_path, index=False)
             test_df.to_csv(self.data_ingestion_data.test_data_path, index=False)
 
-            # logging.info("Data ingestion completed successfully.")
+            logging.info("Data ingestion completed successfully.")
             return (
                     self.data_ingestion_data.train_data_path,
                     self.data_ingestion_data.test_data_path
@@ -46,14 +46,14 @@ class data_ingestion():
          
 
 
-if __name__=="__main__":
-    obj_injest=data_ingestion()
-    train_data,test_data=obj_injest.initiate_data_ingestion()
-    print("DataUpdated")
+# if __name__=="__main__":
+#     obj_injest=data_ingestion()
+#     train_data,test_data=obj_injest.initiate_data_ingestion()
+#     print("DataUpdated")
     
-    obj_transform=DataTransformation()
-    train_arr,test_arr=obj_transform.initiate_data_transformation(train_data,test_data)
+#     obj_transform=DataTransformation()
+#     train_arr,test_arr=obj_transform.initiate_data_transformation(train_data,test_data)
     
-    obj_training=TrainingData()
-    obj_training.initiate_training(train_arr,test_arr)
-    print("All pipeline ran successfully")
+#     obj_training=TrainingData()
+#     obj_training.initiate_training(train_arr,test_arr)
+#     print("All pipeline ran successfully")

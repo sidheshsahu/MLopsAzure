@@ -67,7 +67,7 @@ class TrainingData():
             best_models = {}
 
             for name in models:
-                print(f"\n Tuning and training: {name}")
+                
                 model = models[name]
                 param_grid = params[name]
 
@@ -75,14 +75,14 @@ class TrainingData():
                 gs.fit(X_train, y_train)
 
                 best_model_grid = gs.best_estimator_
-                print(best_model_grid)
+               
                 y_pred = best_model_grid.predict(X_test)
                 acc = accuracy_score(y_test, y_pred)
 
                 model_report[name] = acc
                 best_models[name] = best_model_grid
 
-                print(f"{name} best accuracy: {acc:.4f}")
+                
 
 
 
