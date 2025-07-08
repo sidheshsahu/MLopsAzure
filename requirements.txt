@@ -4,3 +4,8 @@ scikit-learn
 seaborn
 matplotlib
 flask
+fastapi
+uvicorn
+python-multipart
+jinja2
+mlflow

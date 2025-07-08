@@ -13,7 +13,7 @@ import sys
 from dataclasses import dataclass
 import pandas as pd
 import numpy as np
-
+import mlflow
 
 
 @dataclass
@@ -59,7 +59,8 @@ class TrainingData():
                 }
                }
 
-
+            mlflow.set_experiment("StudentPacementTrackingUpdate")
+            mlflow.set_tracking_uri("http://127.0.0.1:5000")
 
 
 
@@ -82,7 +83,12 @@ class TrainingData():
                 model_report[name] = acc
                 best_models[name] = best_model_grid
 
-                
+                with mlflow.start_run(run_name=name):
+                    mlflow.log_params(gs.best_params_)
+                    mlflow.log_metric("accuracy", acc)
+                    mlflow.sklearn.log_model(best_model_grid, artifact_path="model")
+                    mlflow.set_tag("model_type", name)
+
 
 
 
