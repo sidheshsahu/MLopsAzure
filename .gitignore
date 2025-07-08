@@ -3,4 +3,4 @@ venv/
 artifacts/
 Dockerfile
 mlartifacts/
-mlruns/
+mlruns
